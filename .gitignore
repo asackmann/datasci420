@@ -1,0 +1,8 @@
+# Specify filepatterns you want git to ignore.
+*.txt
+*.py
+*.md
+images/uw*
+data
+instructor
+.ipynb_checkpoints
