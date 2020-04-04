@@ -2,7 +2,7 @@
 *.txt
 *.py
 *.md
-images/uw*
-data
+images
+# data
 instructor
 .ipynb_checkpoints
