@@ -2,6 +2,7 @@
 marp: true
 theme: gaia
 paginate: true
+backgroundColor: white
 ---
 
 <!-- #4C2E84 -->
@@ -24,6 +25,105 @@ paginate: true
 
 ## today's agenda
 
+- why **neural networks**?
+- the **math** behind neural networks
+- basic **terminology**
+- how neural networks learn
+- using an analogy
+- the **backpropagation** algorithm
+- how to **prevent over-fitting** with neural networks
+
+----------------------------------------------------------------
+
+<!-- _class: lead -->
+
+![center w:1000](./images/deep-network.jpg)
+
+image source: [neuralnetworksanddeeplearning.com]
+
+[neuralnetworksanddeeplearning.com]: http://neuralnetworksanddeeplearning.com
+
+----------------------------------------------------------------
+
+## what makes neural networks special
+
+- can **train gradually**: show training progress and stop training when it starts to overfit (otherwise overfitting is almost **inevitable**)
+- can **update model parameters** with new data
+- they have **feature engineering built in**, allowing for more abstract features in deeper layers
+- very **data-hungry** (deep models need a lot of data to not overfit) and **computate-hungry** (**GPU** hardware such as Nvidia, CUDA software layer on top)
+
+----------------------------------------------------------------
+
+## math behind neural networks
+
+- **optimization**
+  - **batch** gradient descent: precise but too slow
+  - **mini-batch** (stochastic) gradient descent SGD: noisy but fast
+  - momentum, RMSProp, Adam, etc: help converge faster
+- **calculus**
+  - **chain rule** and multivariate calculus
+- **linear algebra** - basic matrix algebra for how to vectorize computation
+
+----------------------------------------------------------------
+
+<!-- _class: lead -->
+
+![center w:1000](./images/neural-network.jpg)
+
+image source: [playground.tensorflow.org]
+
+[playground.tensorflow.org]: https://playground.tensorflow.org
+
+----------------------------------------------------------------
+
+## neural network terminology
+
+- input / hidden / output **layers and neurons**
+- the **weights** and **biases** are the model **parameters**
+- **activation functions** are applied to the **weighted sum** at each layer to get **activations**
+- each iteration applies one forward and backward pass using a **mini-batch**, once we exhaust data we have one **epoch**
+- at the end of one **forward pass** we compute **loss**
+- at the end of one **backward pass** weights and biases are adjusted
+
+----------------------------------------------------------------
+
+## activation function
+
+- functions that squash inputs to learn non-linearity
+- **sigmoid:** $\sigma(x) \in (0, 1)$
+- **tanh:** $\tanh(x) \in (-1, 1)$
+- **ReLU:** zeros out negatives
+- many other ones
+
+![bg right w:650](./images/activation-functions-examples.jpg)
+
+image source: [www.wikipedia.org]
+
+[www.wikipedia.org]: https://en.wikipedia.org/wiki/Activation_function
+
+----------------------------------------------------------------
+
+## how a neural network trains
+
+1. **initialize** weights and biases
+1. take a **mini-batch** of data
+   - make a **forward pass** (get predictions) and evaluate **loss** (error)
+   - make a **backward pass** to get gradient of loss w.r.t. weights and biases at each layer
+   - **update** weights and biases accordingly
+1. repeat step 2 until you converge, meanwhile keep track
+of performance at every **epoch**
+
+----------------------------------------------------------------
+
+## analogy: writing an essay
+
+1. write a essay filled with **random words**
+1. for a random **paragraph** of your essay
+   - go see your teacher and read it to him to get his **feedback**
+   - go back and find how you **incorporate** the feedback
+   - **update** paragraph to reflect feedback
+1. repeat step 2 until the feedback is just minor details, meanwhile keep track of improvement every time you exhaust all paragraphs (have read whole essay)
+
 ----------------------------------------------------------------
 
 <!-- _class: lead -->
@@ -31,169 +131,36 @@ paginate: true
 
 ----------------------------------------------------------------
 
-## [lab time]
+<!-- _class: lead -->
+
+![center w:1000](./images/gradient-descent.jpg)
+
+image source: [wikipedia.org]
+
+[wikipedia.org]: https://en.wikipedia.org/wiki/Gradient_descent
+
+----------------------------------------------------------------
+
+## backpropagation
+
+- the optimization routine is to minimize the loss function (total error) w.r.t. the weights and biases
+  - **gradient descent** will do it, but batch GD is too slow
+  - **stochastic gradient descent** using **mini-batches** is much faster, but we still have to do this one parameter at a time
+  - **backpropagation** implements SGD but in **one** backward pass
+- with **arrays computations**, we can run BP efficiently
+- with **tensors and GPUs**, we can speed up even more
+
+----------------------------------------------------------------
+
+## prevent over-fitting
+
+- **early-stopping:** if after a certain epoch performance (on validation data) starts to decline then stop training
+- **drop-out:** for each iteration, zero out some weights (and biases), do the forward and backward pass, update remaining weights and biases, then repeat
+- **regularization:** same as traditional ML
+- **more training data:** data augmentation
+- **hyper-parameter tuning:** simplify the **architecture** (fewer HLs, fewer units within each HL, etc.)
 
 ----------------------------------------------------------------
 
 <!-- _class: lead -->
 ## the end
-
-
-
-
-
-what are NNs? what is deep learning?
-
-neural networks motivation:
-- show training progress and stop training when it starts to overfit
-- the math is basic calculus and LA
-- GPUs instead of CPUs
-- they do their own feature engineering, allowing for more abstract features in deeper layers
-
-math behind NNs:
-- optimization - SGD stochastic gradient descent
-- calculus - chain rule applied to multivariate calculus
-- linear algebra - basic matrix algebra and how to vectorize computations
-
-terminology:
-- inputs, outputs, weights, biases, activation functions, activations (output of applying activation functions to weighted sums)
-- forward pass, backward pass
-- gradient descent, stochastic gradient descent, back-propagation
-- three ways to run each iteration of the optimization:
-  - batch (update weights and biases based on average loss for the whole data)
-  - mini-batch (update weights and biases based on average loss for a small sample of data)
-  - online training (update weights and biases one row at a time)
-- epoch
-
-the perceptron model is the most basic neural network building block
-
-different activation functions:
-- sigmoid (between 0 and 1)
-- tanh (between -1 and 1)
-- softmax (at the last layer)
-- ReLU
-
-how a neural network trains:
-- 1) initialize weights and biases
-- 2) take the next mini-batch of data:
-  - a) make a forward pass (which gives you a prediction) and calculate the "loss" (error)
-  - b) make a backward pass (which gives you the derivative of loss w.r.t. weights and biases)
-  - c) update weights and biases accordingly
-- 3) repeat step 2 until you converge
-- 4) OPTIONAL if we've reached an epoch (exhausted the mini-batches), then keep track of performance (loss or accuracy) so far
-
-how training happens -> GD is the what, SGD is the whatish, BP is the how:
-- the cost function (loss function, objective function) computes the error
-- gradient descent finds weights and biases that minimize cost
-  - we can minimize the cost over all training data, but this takes forever
-  - stochastic gradient descent runs gradient descent on mini-batches of data, so we minimize the cost over a mini-batch of training data and use a different mini-batch for each iteration
-  - SGD is more noisy, but much much faster
-back-propagation (implementation of gradient descent for neural networks)
-- implement the optimization using a matrix computation (single pass at each iteration -> you updates all weights and biases in one swoop of matrix computations)
-
-prevent over-fitting:
-  - early-stopping - if after a certain number of epochs performance (on validation data) starts to decline then stop training
-  - drop-out - for each mini-batch of data (iteration), drop some random units, do the forward and backward pass, update weights and biases (that weren't dropped), then repeat
-  - regularization
-  - more training data
-  - simplify the architecture (fewer HLs, fewer units within each HL) - hyper-parameter tuning
-
-automated ML can be used to tune the hyper-parameters of a NN (and figure out the right architecture) -> bayesian optimization is the most popular method:
-- trade-off between exploration (very different set of HPs) and exploitation (very similar HPs, just slight tweek)
-
-
-
-neural networks motivation:
-- computational power (GPU hardware such as Nvidia, CUDA software layer on top)
-- big data (deep models need a lot of data to not overfit)
-- training happens gradually and can be updated
-- break-throughs
-- neural networks do their own feature engineering
-
-the perceptron model is the most basic neural network building block
-- weighted sum (weights and bias)
-- activations (apply an activation function to weighted sums)
-
-how training happens -> GD is the what, SGD is the whatish, BP is the how:
-- the cost function (loss function, objective function) computes the error
-- gradient descent finds weights and biases that minimize cost
-  - we can minimize the cost over all training data, but this takes forever
-  - stochastic gradient descent runs gradient descent on mini-batches of data, so we minimize the cost over a mini-batch of training data and use a different mini-batch for each iteration
-  - SGD is more noisy, but much much faster
-back-propagation (implementation of gradient descent for neural networks)
-- implement the optimization using a matrix computation (single pass at each iteration -> you updates all weights and biases in one swoop of matrix computations)
-
-different activation functions:
-- sigmoid
-- tanh
-- ReLU
-- softmax (used in the last layer -> normalizes the outputs so they add up to 1 and become probabilities)
-
-how a neural network trains:
-- 1) initialize weights and bias
-- 2) make forward pass (from inputs you get outputs) and calculate loss/cost
-- 3) make a backward pass and calculate the "gradient" (derivative) of cost
-- 4) update weights and biases accordingly
-- 5) run steps 2-4 iteratively, use mini-batches of data for each iteration
-for record-keeping (so you know when you're overfitting)
-- 6) after we exhaust all mini-batches, we made one pass through all the data (called an "epoch"), we track the performance on the training and test data so far
-
-prevent over-fitting:
-  - early-stopping: stop training when performance on test data starts to decline
-  - drop-out: for each iteration (mini-batch), drop out some hidden units at random and update remaining weights and biases, then repeat
-
-automated ML can be used to tune the hyper-parameters of a NN (and figure out the right architecture) -> bayesian optimization is the most popular method:
-- trade-off between exploration (very different set of HPs) and exploitation (very similar HPs, just slight tweek)
-
-
-
-
-math behind NNs:
-- optimization - SGD stochastic gradient descent
-- calculus - chain rule applied to multivariate calculus
-- linear algebra - basic matrix algebra and how to vectorize computations
-
-terminology:
-- inputs, outputs, weights, biases, activation functions, activations (output of applying activation functions to weighted sums)
-- forward pass, backward pass
-- gradient descent, stochastic gradient descent, back-propagation
-- three ways to run each iteration of the optimization:
-  - batch (update weights and biases based on average loss for the whole data)
-  - mini-batch (update weights and biases based on average loss for a small sample of data)
-  - online training (update weights and biases one row at a time)
-- epoch
-
-neural networks motivation:
-- show training progress and stop training when it starts to overfit
-- the math is basic calculus and LA
-- GPUs instead of CPUs
-- they do their own feature engineering, allowing for more abstract features in deeper layers
-
-the perceptron model is the most basic neural network building block
-
-how training happens -> GD is the what, SGD is the whatish, BP is the how
-
-back-propagation (implementation of gradient descent for neural networks)
-
-different activation functions:
-- sigmoid (between 0 and 1)
-- tanh (between -1 and 1)
-- softmax (at the last layer)
-- ReLU
-
-how a neural network trains:
-- 1) initialize weights and biases
-- 2) take the next mini-batch of data:
-  - a) make a forward pass (which gives you a prediction) and calculate the "loss" (error)
-  - b) make a backward pass (which gives you the derivative of loss w.r.t. weights and biases)
-  - c) update weights and biases accordingly
-- 3) repeat step 2 until you converge
-- 4) OPTIONAL if we've reached an epoch (exhausted the mini-batches), then keep track of performance so far
-
-
-prevent over-fitting:
-  - early-stopping - if after a certain epoch performance (on test data) starts to decline then stop training
-  - drop-out - for each mini-batch of data (iteration), drop some random units, do the forward and backward pass, update weights and biases (that weren't dropped), then repeat
-  - regularization
-  - more training data
-  - simplify the architecture (fewer HLs, fewer units within each HL) - hyper-parameter tuning

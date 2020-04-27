@@ -2,6 +2,7 @@
 marp: true
 theme: gaia
 paginate: true
+backgroundColor: white
 ---
 
 <!-- #4C2E84 -->
@@ -127,7 +128,7 @@ let's get more specific: find one FE example for each of these:
 - let $X$ be a categorical feature, with $x_i$ being its $i$th category
 - $R$ is a numeric feature, defined by
 
-$$R_i = \log\dfrac{P(Y = 1|X = x_i)}{P(Y = 1|X = x_i)}$$
+$$R_i = \log\dfrac{P(Y = 1|X = x_i)}{P(Y = 0|X = x_i)}$$
 
 - $P(Y = 1|X = x_i)$ reads the probabilty of $Y = 1$ **given that** $X = x_i$, i.e. the **odds** of $Y$ for the subset where $X = x_i$
 
@@ -162,10 +163,10 @@ $$R_i = \log\dfrac{P(Y = 1|X = x_i)}{P(Y = 1|X = x_i)}$$
 
 | date       | customer | purchased | R        | F         | M        |
 | :--------: | :------: | :-------: | :-----:  | :-------: | :------: |
-| 2020-01-01 | XYZ      | $50       | NA       | NA        | NA       |
+| 2020-01-01 | XYZ      | $50       | NA       | 1         | $50       |
 | 2020-01-03 | XYZ      | $23       | 2 days   | 2         | $73      |
 | 2020-01-11 | XYZ      | $35       | 8 days   | 1         | $35      |
-| 2020-01-02 | ABC      | $65       | NA       | NA        | NA       |
+| 2020-01-02 | ABC      | $65       | NA       | 1         | $65       |
 | 2020-01-03 | ABC      | $25       | 1 day    | 2         | $90      |
 | 2020-01-29 | ABC      | $35       | 26 days  | 1         | $35      |
 | $\vdots$   | $\vdots$ | $\vdots$  | $\vdots$ | $\vdots$  | $\vdots$ |

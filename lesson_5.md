@@ -2,6 +2,7 @@
 marp: true
 theme: gaia
 paginate: true
+backgroundColor: white
 ---
 
 <!-- #4C2E84 -->

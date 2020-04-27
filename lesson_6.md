@@ -2,6 +2,7 @@
 marp: true
 theme: gaia
 paginate: true
+backgroundColor: white
 ---
 
 <!-- #4C2E84 -->
@@ -61,9 +62,9 @@ paginate: true
 
 ![center w:1000](./images/bagging-illustrated.jpg)
 
-source: [Wikipedia]
+image source: [wikipedia.org]
 
-[Wikipedia]: https://en.wikipedia.org/wiki/Bootstrap_aggregating
+[wikipedia.org]: https://en.wikipedia.org/wiki/Bootstrap_aggregating
 
 ----------------------------------------------------------------
 
@@ -81,9 +82,9 @@ making every learner **better than the previous** at learning the examples (**ro
 
 ![center w:1000](./images/boosting-illustrated.jpg)
 
-source: [Wikipedia]
+image source: [wikipedia.org]
 
-[Wikipedia]: https://en.wikipedia.org/wiki/Boosting_(machine_learning)
+[wikipedia.org]: https://en.wikipedia.org/wiki/Boosting_(machine_learning)
 
 ----------------------------------------------------------------
 
@@ -104,18 +105,18 @@ source: [Wikipedia]
 
 ----------------------------------------------------------------
 
-## boosted regression example
+## regression example
 
 - numeric target
 - one numeric feature
 - tree prediction is like a **step function**
 - ensemble of trees prediction looks much **smoother**
 
-source: [https://scikit-learn.org]
+image source: [scikit-learn.org]
 
 ![bg right w:600](./images/adaboost-tree-regression.jpg)
 
-[https://scikit-learn.org]: https://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_regression.html?highlight=ensemble
+[scikit-learn.org]: https://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_regression.html?highlight=ensemble
 
 ----------------------------------------------------------------
 
@@ -126,11 +127,11 @@ source: [https://scikit-learn.org]
 - decision boundary **spiral** (top), **circular** (middle), and **linear** (bottom)
 - **shading** indicates model's **confidence** in its prediction
 
-source: [https://scikit-learn.org]
+image source: [scikit-learn.org]
 
 ![bg right w:600](./images/algo-comparisons-classification.jpg)
 
-[https://scikit-learn.org]: https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html?highlight=ensemble
+[scikit-learn.org]: https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html?highlight=ensemble
 
 ----------------------------------------------------------------
 

@@ -2,6 +2,7 @@
 marp: true
 theme: gaia
 paginate: true
+backgroundColor: white
 ---
 
 <!-- #4C2E84 -->
@@ -72,8 +73,6 @@ the remaining lectures starting now will only be concerned with **supervised lea
 
 ----------------------------------------------------------------
 
-<!-- _backgroundColor: white; -->
-
 ![bg w:1200](./images/machine-learning-process.jpg)
 
 ----------------------------------------------------------------
@@ -113,8 +112,6 @@ the remaining lectures starting now will only be concerned with **supervised lea
 > *Everything should be made as simple as possible, but not simpler.* **Albert Einstein** (also look up **okam's razor**)
 
 ----------------------------------------------------------------
-
-<!-- _backgroundColor: white; -->
 
 ![bg w:700](./images/overfitting-vs-underfitting.jpg)
 
