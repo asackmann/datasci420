@@ -6,3 +6,5 @@ images
 # data
 instructor
 .ipynb_checkpoints
+*.dot
+*.png
